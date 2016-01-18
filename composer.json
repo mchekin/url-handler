@@ -1,6 +1,6 @@
 {
     "name": "michael/url-handler",
-    "description": "Handling and parsing urls",
+    "description": "Simple URL handling library in PHP",
     "type": "library",
     "autoload": {
         "psr-4": {"Mchekin\\UrlHandler\\": "src", "Tests\\Mchekin\\UrlHandler\\": "tests/unit"}
