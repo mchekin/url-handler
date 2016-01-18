@@ -2,6 +2,9 @@
     "name": "michael/url-handler",
     "description": "Handling and parsing urls",
     "type": "library",
+    "autoload": {
+        "psr-4": {"Mchekin\\UrlHandler\\": "src", "Tests\\Mchekin\\UrlHandler": "tests/unit"}
+    },
     "require": {
         "php": ">=5.5.0"
     },
