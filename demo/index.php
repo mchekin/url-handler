@@ -13,10 +13,14 @@ ini_set('display_errors', '1');
 
 require_once '../vendor/autoload.php';
 
-$url = 'https://laravel.com/docs/5.2?show=me&the=bunny#server-requirements';
+$urls = [
+    'https://laravel.com/docs/5.2?show=me&the=bunny#server-requirements',
+    'http://www.example.com/something/../else/page.php?foo=bar&url=http://www.example.com',
+    'http://usr:pss@example.com:81/mypath/myfile.html?a=b&b[]=2&b[]=3#myfragment'
+];
 
-echo $url.'<br>';
-
-$urlHandler =  new Url('http://www.example.com/something/../else/page.php?foo=bar&url=http://www.example.com');
-
-echo $urlHandler;
+foreach ($urls as $url) {
+    echo $url.'<br><br>';
+    $urlHandler =  new Url($url);
+    echo $urlHandler. '<br><hr>';
+}

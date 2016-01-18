@@ -36,11 +36,9 @@ class Url
         $this->port = isset($components['port']) ? $components['port'] : '';
         $this->user = isset($components['user']) ? $components['user'] : '';
         $this->pass = isset($components['pass']) ? $components['pass'] : '';
-        $this->path = isset($components['path']) ? $components['path'] : '';
+        $this->path = isset($components['path']) ? $this->normalizePath($components['path']) : '';
         $this->query = isset($components['query']) ? $components['query'] : '';
         $this->fragment = isset($components['fragment']) ? $components['fragment'] : '';
-
-        var_dump($this);
     }
 
     /**
@@ -48,14 +46,13 @@ class Url
      */
     public function __toString()
     {
-
         $scheme   = ($this->scheme !== '') ? $this->scheme . '://' : '';
         $host     = ($this->host !== '') ? $this->host : '';
         $port     = ($this->port !== '') ? ':' . $this->port : '';
         $user     = ($this->user !== '') ? $this->user : '';
         $pass     = ($this->pass !== '') ? ':' . $this->pass  : '';
         $pass     = ($user || $pass) ? "$pass@" : '';
-        $path     = ($this->path !== '') ? $this->normalizePath($this->path) : '';
+        $path     = ($this->path !== '') ? $this->path : '';
         $query    = ($this->query !== '') ? '?' . $this->query : '';
         $fragment = ($this->fragment !== '') ? '#' . $this->fragment : '';
 
@@ -134,18 +131,17 @@ class Url
      */
     protected function normalizePath($path)
     {
+        // parsing ..
         $path = explode('/', $path);
         $keys = array_keys($path, '..');
-
-        var_dump($keys);
 
         foreach($keys AS $position => $key)
         {
             $offset = $key - ($position * 2 + 1);
-            echo $offset.'<br>';
             array_splice($path, $offset, 2);
         }
 
+        // parsing .
         $path = implode('/', $path);
         $path = str_replace('./', '', $path);
 
